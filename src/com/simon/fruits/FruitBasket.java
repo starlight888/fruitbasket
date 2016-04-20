@@ -117,7 +117,18 @@ public class FruitBasket {
 	public static void main(String[] args) {
 		
 		FruitBasket fbasket = new FruitBasket();
-		String fruitsFilePath = "c:\\data\\fruits.csv";	//could be supplied as part of command line param.	
+		String fruitsFilePath = "";		
+		// take cmd line param for file is exists
+		if (args.length>0) {
+			fruitsFilePath = args[0];
+		}
+		
+		// check command line supplied and assign default is none supplied 
+		if (fruitsFilePath==null || fruitsFilePath.isEmpty()) {
+			fruitsFilePath = "c:\\data\\fruits.csv";
+		}
+		
+
 		try {
 			if (fbasket.readFruitsList(fruitsFilePath)) {
 				double totalCost = fbasket.calculateTotalCosts();
