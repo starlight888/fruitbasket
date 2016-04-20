@@ -22,7 +22,7 @@ public class FruitBasket {
 	/**
 	 * 
 	 * @param pathFruitsFile This is file containing list of fruits in csv file.
-	 * 						 Format is fruit name,unit cost,quantity 
+	 * 						 Format is fruit name,unit cost in £,quantity 
 	 * 						 e.g.
 	 * 						bananas,0.2,4
 	 *						apples,0.15,10
@@ -89,8 +89,24 @@ public class FruitBasket {
 	 * @param totalCost
 	 */
 	public void showTotal(double totalCost) {
-		System.out.println("Total cost of fruit basket=" + df2dp.format(totalCost) );
+		System.out.println("Total cost of fruit basket= £" + df2dp.format(totalCost) );
 	}
+	
+	/**
+	 * Show the contents of the basket
+	 */
+	public void showContents() {
+		if (fruitsList.isEmpty()) {
+			System.out.println("Fruit basket is empty.");
+		} else {
+			for (Fruit fruit:fruitsList) {
+				System.out.println(fruit.getName() + ": " + fruit.getQuantity() + 
+						" at £" + df2dp.format(fruit.getUnitCost()) + " each = £" +
+						df2dp.format(fruit.getQuantity()*fruit.getUnitCost()) );
+			}
+		}
+	}
+	
 	
 	/**
 	 * Start of program to create instance if FruitBasket and call its 
@@ -106,6 +122,7 @@ public class FruitBasket {
 			if (fbasket.readFruitsList(fruitsFilePath)) {
 				double totalCost = fbasket.calculateTotalCosts();
 				fbasket.showTotal(totalCost);
+				fbasket.showContents();
 			} else {
 				System.out.println("Could not calculate total.");
 			}
@@ -114,7 +131,7 @@ public class FruitBasket {
 			// TODO Auto-generated catch block
 			System.out.println("Cannot find " + fruitsFilePath + ".");
 			System.out.println("This should be a csv file with format:");
-			System.out.println("fruit name,unit cost,quantity");
+			System.out.println("fruit name,unit cost in £,quantity");
 		}
 	}
 
