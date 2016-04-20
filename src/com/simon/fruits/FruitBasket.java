@@ -47,19 +47,24 @@ public class FruitBasket {
 			currLine = br.readLine(); // do nothing with it
 			
 			while ((currLine = br.readLine()) != null) {
-				String[] fruitLineParts = currLine.split(delims);
-				fruitName = fruitLineParts[0];
-				try {
-					fruitCost = Double.parseDouble(fruitLineParts[1]);
-					fruitQty = Integer.parseInt(fruitLineParts[2]);
-					Fruit fruit = new Fruit(fruitName, fruitCost, fruitQty);
-					fruitsList.add(fruit);
-				} catch (NumberFormatException nfex) {
-					System.out.println("Failed to parse line: " + currLine);
-					System.out.println("Please note format is: fruitname,unit cost,quantity");
-					boolSuccess = false;
-					break;
+				// check we have a line
+				currLine = currLine.trim();
+				if (!currLine.equals("")) {
+					String[] fruitLineParts = currLine.split(delims);
+					fruitName = fruitLineParts[0];
+					try {
+						fruitCost = Double.parseDouble(fruitLineParts[1]);
+						fruitQty = Integer.parseInt(fruitLineParts[2]);
+						Fruit fruit = new Fruit(fruitName, fruitCost, fruitQty);
+						fruitsList.add(fruit);
+					} catch (NumberFormatException nfex) {
+						System.out.println("Failed to parse line: " + currLine);
+						System.out.println("Please note format is: fruitname,unit cost,quantity");
+						boolSuccess = false;
+						break;
+					}
 				}
+				
 			}
 			
 			return boolSuccess;
